@@ -11,7 +11,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         <Link href={`/product/${product.slug}`}>
           <Image
             src={product.images[0]}
-            alt="{product.name"
+            alt="{product.name}"
             height={300}
             width={300}
             priority={true}
@@ -21,7 +21,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       <CardContent className="p-4 grid gap-4">
         <div className="text-xs">{product.brand}</div>
         <Link href={`/product/${product.slug}`}>
-          <h2 className="text-sm font medium">product.name</h2>
+          <h2 className="text-sm font medium">{product.name}</h2>
         </Link>
         <div className="flex-between gap-4">
           <p>{product.rating} Stars</p>
