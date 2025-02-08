@@ -61,12 +61,12 @@ const AddToCart = ({ cart, item }: { cart?: Cart; item: CartItem }) => {
     cart && cart.items.find((x) => x.productId === item.productId);
 
   return existItem ? (
-    <div>
+    <div className="flex w-full">
       <Button
         type="button"
-        variant="outline"
         disabled={isPending}
         onClick={handleRemoveFromCart}
+        className="flex-none"
       >
         {isPending ? (
           <Loader className="w-4 h-4 animate-spin" />
@@ -74,12 +74,14 @@ const AddToCart = ({ cart, item }: { cart?: Cart; item: CartItem }) => {
           <Minus className="h-4 w-4" />
         )}
       </Button>
-      <span className="px-2">{existItem.qty}</span>
+      <span className="px-2 grow text-center content-around">
+        {existItem.qty}
+      </span>
       <Button
         type="button"
-        variant="outline"
         disabled={isPending}
         onClick={handleAddToCart}
+        className="flex-none"
       >
         {isPending ? (
           <Loader className="w-4 h-4 animate-spin" />
