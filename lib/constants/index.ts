@@ -14,6 +14,6 @@ export const signUpDefaultValues = {
 };
 
 export const signInDefaultValues = {
-  email: "sales@1stmark.co.uk",
+  email: "",
   password: "",
 };
