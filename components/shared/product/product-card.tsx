@@ -15,11 +15,12 @@ const ProductCard = ({ product }: { product: Product }) => {
             height={300}
             width={300}
             priority={true}
+            className="rounded-t-sm"
           />
         </Link>
       </CardHeader>
       <CardContent className="p-4 grid gap-4">
-        <div className="text-xs">{product.brand}</div>
+        <div className="text-xs">{product.brandId}</div>
         <Link href={`/product/${product.slug}`}>
           <h2 className="text-sm font medium">{product.name}</h2>
         </Link>

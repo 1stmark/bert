@@ -6,7 +6,11 @@ import { Plus, Minus, Loader } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { Cart, CartItem } from "@/types";
-import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
+import {
+  addItemToCart,
+  removeItemFromCart,
+  updateItemCart,
+} from "@/lib/actions/cart.actions";
 import { useTransition } from "react";
 
 const AddToCart = ({ cart, item }: { cart?: Cart; item: CartItem }) => {
@@ -45,6 +49,17 @@ const AddToCart = ({ cart, item }: { cart?: Cart; item: CartItem }) => {
     });
   };
 
+  const handleUpdateCart = async () =>
+    startTransition(async () => {
+      const res = await updateItemCart();
+      if (!res.success) {
+        toast({
+          variant: "destructive",
+          description: res.message,
+        });
+      }
+    });
+
   // Handle remove from cart
   const handleRemoveFromCart = async () => {
     const res = await removeItemFromCart(item.productId);
@@ -57,16 +72,16 @@ const AddToCart = ({ cart, item }: { cart?: Cart; item: CartItem }) => {
   };
 
   // check if item is in cart
-  const existItem =
+  const currentItem =
     cart && cart.items.find((x) => x.productId === item.productId);
 
-  return existItem ? (
-    <div className="flex w-full">
+  return currentItem ? (
+    <div className="inline-flex">
       <Button
         type="button"
         disabled={isPending}
         onClick={handleRemoveFromCart}
-        className="flex-none"
+        className="rounded-l-full"
       >
         {isPending ? (
           <Loader className="w-4 h-4 animate-spin" />
@@ -74,14 +89,18 @@ const AddToCart = ({ cart, item }: { cart?: Cart; item: CartItem }) => {
           <Minus className="h-4 w-4" />
         )}
       </Button>
-      <span className="px-2 grow text-center content-around">
-        {existItem.qty}
-      </span>
+      <input
+        className="h-10 w-14 text-center"
+        type="text"
+        id="qty"
+        value={currentItem.qty}
+        onBlur={handleUpdateCart}
+      />
       <Button
         type="button"
         disabled={isPending}
         onClick={handleAddToCart}
-        className="flex-none"
+        className="rounded-r-full"
       >
         {isPending ? (
           <Loader className="w-4 h-4 animate-spin" />

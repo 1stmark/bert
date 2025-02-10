@@ -196,3 +196,7 @@ export async function removeItemFromCart(productId: string) {
     return { success: false, message: formatError(error) };
   }
 }
+
+export async function updateItemCart() {
+  return { success: false, message: "to be made" };
+}

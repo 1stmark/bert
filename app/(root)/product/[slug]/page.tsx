@@ -31,7 +31,7 @@ const ProductDetailsPage = async (props: {
           <div className="col-span-2 p-5">
             <div className="flex flex-col gap-6">
               <p>
-                {product.brand} {product.category}{" "}
+                {product.brandId} {product.category}
               </p>
               <h1 className="h3-bold">{product.name}</h1>
               <p>
@@ -52,23 +52,25 @@ const ProductDetailsPage = async (props: {
           {/* Action col */}
           <div>
             <Card>
-              <CardContent className="p-4">
-                <div className="mb-2 flex justify-between">
-                  <div>Price</div>
-                  <div>
-                    <ProductPrice value={Number(product.price)} />
+              <CardContent className="p-4 flex flex-row md:flex-col">
+                <div className="flex-1">
+                  <div className="mb-2 flex justify-between">
+                    <div>Price</div>
+                    <div>
+                      <ProductPrice value={Number(product.price)} />
+                    </div>
+                  </div>
+                  <div className="mb-2 flex justify-between">
+                    <div>Status</div>
+                    {product.stock > 0 ? (
+                      <Badge variant="outline">In Stock</Badge>
+                    ) : (
+                      <Badge variant="destructive">Out of Stock</Badge>
+                    )}
                   </div>
                 </div>
-                <div className="mb-2 flex justify-between">
-                  <div>Status</div>
-                  {product.stock > 0 ? (
-                    <Badge variant="outline">In Stock</Badge>
-                  ) : (
-                    <Badge variant="destructive">Out of Stock</Badge>
-                  )}
-                </div>
                 {product.stock > 0 && (
-                  <div className="flex-center">
+                  <div className="flex-1 flex-center pt-3">
                     <AddToCart
                       cart={cart}
                       item={{
